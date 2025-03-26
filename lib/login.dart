@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:genesapp/usersScreen/screens_guias/guias_screen.dart';
@@ -6,9 +7,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:flutter/services.dart';
-import 'adminScreen/admin.dart';
-import 'medicScreen/medico.dart';
-import 'pacientScreen/paciente.dart';
 import 'register.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -18,8 +16,7 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen>
-    with SingleTickerProviderStateMixin {
+class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStateMixin {
   final _auth = FirebaseAuth.instance;
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -78,20 +75,21 @@ class _LoginScreenState extends State<LoginScreen>
               ),
             ),
           ),
-          Positioned.fill(
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
-              child: Container(color: Colors.black.withOpacity(0.1)),
+
+          // Condicional para evitar crash en emuladores x86
+          if (!kIsWeb && defaultTargetPlatform != TargetPlatform.linux)
+            Positioned.fill(
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
+                child: Container(color: Colors.black.withOpacity(0.1)),
+              ),
             ),
-          ),
+
           Center(
             child: FadeTransition(
               opacity: _fadeAnim,
               child: SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 30,
-                  vertical: 50,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 50),
                 child: Container(
                   decoration: BoxDecoration(
                     color: Colors.white.withOpacity(0.2),
@@ -105,6 +103,7 @@ class _LoginScreenState extends State<LoginScreen>
                       Image.asset(
                         'assets/images/genesappLogo-removebg-preview.png',
                         height: 80,
+                        filterQuality: FilterQuality.none,
                       ),
                       const SizedBox(height: 20),
                       const Text(
@@ -118,10 +117,7 @@ class _LoginScreenState extends State<LoginScreen>
                       const SizedBox(height: 20),
                       TextField(
                         controller: _emailController,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500,
-                        ),
+                        style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
                         decoration: _inputDecoration(
                           label: 'Correo electrónico',
                           icon: Icons.email,
@@ -132,24 +128,16 @@ class _LoginScreenState extends State<LoginScreen>
                       TextField(
                         controller: _passwordController,
                         obscureText: _obscureText,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500,
-                        ),
+                        style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
                         decoration: _inputDecoration(
                           label: 'Contraseña',
                           icon: Icons.lock,
                           suffixIcon: IconButton(
                             icon: Icon(
-                              _obscureText
-                                  ? Icons.visibility
-                                  : Icons.visibility_off,
+                              _obscureText ? Icons.visibility : Icons.visibility_off,
                               color: Colors.white,
                             ),
-                            onPressed:
-                                () => setState(
-                                  () => _obscureText = !_obscureText,
-                                ),
+                            onPressed: () => setState(() => _obscureText = !_obscureText),
                           ),
                         ),
                       ),
@@ -157,18 +145,13 @@ class _LoginScreenState extends State<LoginScreen>
                         children: [
                           Checkbox(
                             value: _rememberMe,
-                            onChanged: (value) {
-                              setState(() => _rememberMe = value!);
-                            },
+                            onChanged: (value) => setState(() => _rememberMe = value!),
                             activeColor: Colors.white,
                             checkColor: Colors.teal,
                           ),
                           const Text(
                             'Recordar este correo',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
+                            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
@@ -184,9 +167,7 @@ class _LoginScreenState extends State<LoginScreen>
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(
-                              builder: (_) => const RegisterScreen(),
-                            ),
+                            MaterialPageRoute(builder: (_) => const RegisterScreen()),
                           );
                         },
                       ),
@@ -208,17 +189,10 @@ class _LoginScreenState extends State<LoginScreen>
                         onPressed: () async {
                           await GoogleSignIn().signOut();
                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text(
-                                "Listo, ahora puedes elegir otra cuenta",
-                              ),
-                            ),
+                            const SnackBar(content: Text("Listo, ahora puedes elegir otra cuenta")),
                           );
                         },
-                        child: const Text(
-                          "¿Usar otra cuenta de Google?",
-                          style: TextStyle(color: Colors.white),
-                        ),
+                        child: const Text("¿Usar otra cuenta de Google?", style: TextStyle(color: Colors.white)),
                       ),
                     ],
                   ),
@@ -238,13 +212,9 @@ class _LoginScreenState extends State<LoginScreen>
   }) {
     return InputDecoration(
       labelText: label,
-      labelStyle: const TextStyle(
-        color: Colors.white,
-        fontWeight: FontWeight.bold,
-      ),
+      labelStyle: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
       prefixIcon: Icon(icon, color: Colors.white),
       suffixIcon: suffixIcon,
-      hintStyle: const TextStyle(color: Colors.white70),
       filled: true,
       fillColor: Colors.white.withOpacity(0.1),
       enabledBorder: OutlineInputBorder(
@@ -269,24 +239,17 @@ class _LoginScreenState extends State<LoginScreen>
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           backgroundColor: const Color(0xFF1FD1AB),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(14),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
           elevation: 8,
           shadowColor: Colors.black45,
           padding: const EdgeInsets.symmetric(vertical: 14),
         ),
-        child:
-            loading
-                ? const CircularProgressIndicator(color: Colors.white)
-                : Text(
-                  text,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
-                ),
+        child: loading
+            ? const CircularProgressIndicator(color: Colors.white)
+            : Text(
+                text,
+                style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
+              ),
       ),
     );
   }
@@ -301,29 +264,20 @@ class _LoginScreenState extends State<LoginScreen>
         onPressed: onPressed,
         style: OutlinedButton.styleFrom(
           side: const BorderSide(color: Colors.white, width: 2),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(14),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
           padding: const EdgeInsets.symmetric(vertical: 14),
         ),
         child: Text(
           text,
-          style: const TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 16,
-          ),
+          style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
         ),
       ),
     );
   }
 
   Future<void> _signInWithEmail() async {
-    if (_emailController.text.trim().isEmpty ||
-        _passwordController.text.trim().isEmpty) {
-      setState(() {
-        _error = 'Por favor completa todos los campos para iniciar sesión';
-      });
+    if (_emailController.text.trim().isEmpty || _passwordController.text.trim().isEmpty) {
+      setState(() => _error = 'Por favor completa todos los campos para iniciar sesión');
       return;
     }
 
@@ -360,21 +314,16 @@ class _LoginScreenState extends State<LoginScreen>
       final user = userCredential.user;
 
       if (user != null) {
-        final userDoc =
-            await FirebaseFirestore.instance
-                .collection('users')
-                .doc(user.uid)
-                .get();
+        final userDoc = await FirebaseFirestore.instance.collection('users').doc(user.uid).get();
+
         if (!userDoc.exists) {
-          await FirebaseFirestore.instance
-              .collection('users')
-              .doc(user.uid)
-              .set({
-                'email': user.email,
-                'role': 'patient',
-                'created_at': DateTime.now(),
-              });
+          await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
+            'email': user.email,
+            'role': 'patient',
+            'created_at': DateTime.now(),
+          });
         }
+
         await _navigateBasedOnRole(user);
       }
     } catch (e) {

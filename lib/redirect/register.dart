@@ -76,14 +76,13 @@ class _RegisterScreenState extends State<RegisterScreen> with SingleTickerProvid
             ),
           ),
           // Condicional para evitar crash en emuladores x86
-          if (!kIsWeb && defaultTargetPlatform != TargetPlatform.android) (
+          if (!kIsWeb && defaultTargetPlatform != TargetPlatform.android)
             Positioned.fill(
               child: BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
                 child: Container(color: Colors.black.withOpacity(0.1)),
               ),
-            )
-          ),
+            ),
           FadeTransition(
             opacity: _fadeAnim,
             child: Center(
@@ -91,13 +90,13 @@ class _RegisterScreenState extends State<RegisterScreen> with SingleTickerProvid
                 padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 60),
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.2),
+                    color: Colors.white.withOpacity(0.8),
                     borderRadius: BorderRadius.circular(25),
                     border: Border.all(color: Colors.white70),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black.withOpacity(0.1),
-                        blurRadius: 10,
+                        blurRadius: 8,
                         offset: const Offset(0, 5),
                       ),
                     ],
@@ -109,17 +108,15 @@ class _RegisterScreenState extends State<RegisterScreen> with SingleTickerProvid
                       Image.asset(
                         'assets/images/genesappLogo-removebg-preview.png',
                         height: 80,
-                        width: 80, // Añadido
-                        fit: BoxFit.contain, // Añadido
-                        filterQuality: FilterQuality.none,  // Añadido
+                        filterQuality: FilterQuality.none,
                       ),
-                      const SizedBox(height: 15),
+                      const SizedBox(height: 20),
                       const Text(
                         '¡Únete a GenesApp y conecta con el conocimiento médico! 💚',
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                          color: Colors.black,
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -210,31 +207,31 @@ class _RegisterScreenState extends State<RegisterScreen> with SingleTickerProvid
       controller: controller,
       obscureText: obscureText,
       keyboardType: keyboardType,
-      style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
+      style: const TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
       decoration: InputDecoration(
         labelText: label,
         labelStyle: const TextStyle(
-          color: Colors.white,
+          color: Colors.black,
           fontWeight: FontWeight.bold,
         ),
-        prefixIcon: Icon(icon, color: Colors.white),
+        prefixIcon: Icon(icon, color: Colors.black),
         suffixIcon: toggleVisibility != null
             ? IconButton(
                 icon: Icon(
                   obscureText ? Icons.visibility : Icons.visibility_off,
-                  color: Colors.white,
+                  color: Colors.black,
                 ),
                 onPressed: toggleVisibility,
               )
             : null,
         filled: true,
-        fillColor: Colors.white.withOpacity(0.1),
+        fillColor: Colors.grey[200],
         enabledBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: Colors.white70),
+          borderSide: const BorderSide(color: Colors.black45),
           borderRadius: BorderRadius.circular(12),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: Colors.white),
+          borderSide: const BorderSide(color: Colors.teal),
           borderRadius: BorderRadius.circular(12),
         ),
       ),

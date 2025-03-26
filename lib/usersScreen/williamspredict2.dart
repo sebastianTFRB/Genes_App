@@ -17,7 +17,7 @@ class WilliamspredictState extends State<Williamspredict> {
   double? probabilidad;
 
   Future<void> _enviarFormulario() async {
-    const url = 'http://TU_IP_LOCAL:5000/predict'; // Cambia esto por tu IP local
+    const url = 'http://192.168.20.10:5000'; // Cambia esto por tu IP local
     try {
       final response = await http.post(
         Uri.parse(url),

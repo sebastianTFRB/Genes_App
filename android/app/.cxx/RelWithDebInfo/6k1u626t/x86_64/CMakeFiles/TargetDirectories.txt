@@ -1,0 +1,2 @@
+C:/Users/ASUS TUF/Desktop/genesapp/android/app/.cxx/RelWithDebInfo/6k1u626t/x86_64/CMakeFiles/edit_cache.dir
+C:/Users/ASUS TUF/Desktop/genesapp/android/app/.cxx/RelWithDebInfo/6k1u626t/x86_64/CMakeFiles/rebuild_cache.dir

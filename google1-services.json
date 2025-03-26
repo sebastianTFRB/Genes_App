@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "880621036129",
+    "project_id": "genesapp-960d8",
+    "storage_bucket": "genesapp-960d8.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:880621036129:android:a97382f11a5e63383bc020",
+        "android_client_info": {
+          "package_name": "com.example.genesapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAzY-o8Fk3oEeYe0TEO7j-KV0cR3yGQtKM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

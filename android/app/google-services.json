@@ -1,0 +1,55 @@
+
+{
+  "project_info": {
+    "project_number": "880621036129",
+    "project_id": "genesapp-960d8",
+    "storage_bucket": "genesapp-960d8.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:880621036129:android:a97382f11a5e63383bc020",
+        "android_client_info": {
+          "package_name": "com.example.genesapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "880621036129-rkbor5kujog1kvam733oaonngk24g09q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.genesapp",
+            "certificate_hash": "742e4498dee007bcd1d16f5d31caa33adab6a7bd"
+          }
+        },
+        {
+          "client_id": "880621036129-j3tdpnhn944vkf68j8h8hesdohh2bkfn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAzY-o8Fk3oEeYe0TEO7j-KV0cR3yGQtKM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "880621036129-j3tdpnhn944vkf68j8h8hesdohh2bkfn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "880621036129-4hn5cqcnp9tehh449gqpp417j4tl5kij.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.genesapp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

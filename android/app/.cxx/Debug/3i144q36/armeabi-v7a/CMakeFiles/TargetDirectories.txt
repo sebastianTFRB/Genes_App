@@ -1,0 +1,2 @@
+C:/genes/Genes_App/android/app/.cxx/Debug/3i144q36/armeabi-v7a/CMakeFiles/edit_cache.dir
+C:/genes/Genes_App/android/app/.cxx/Debug/3i144q36/armeabi-v7a/CMakeFiles/rebuild_cache.dir

@@ -12,7 +12,8 @@ class RegisterScreen extends StatefulWidget {
   State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> with SingleTickerProviderStateMixin {
+class _RegisterScreenState extends State<RegisterScreen>
+    with SingleTickerProviderStateMixin {
   final _auth = FirebaseAuth.instance;
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -87,7 +88,10 @@ class _RegisterScreenState extends State<RegisterScreen> with SingleTickerProvid
             opacity: _fadeAnim,
             child: Center(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 60),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 30,
+                  vertical: 60,
+                ),
                 child: Container(
                   decoration: BoxDecoration(
                     color: Colors.white.withOpacity(0.8),
@@ -166,16 +170,19 @@ class _RegisterScreenState extends State<RegisterScreen> with SingleTickerProvid
                             elevation: 8,
                             padding: const EdgeInsets.symmetric(vertical: 14),
                           ),
-                          child: _loading
-                              ? const CircularProgressIndicator(color: Colors.white)
-                              : const Text(
-                                  'Registrarme',
-                                  style: TextStyle(
+                          child:
+                              _loading
+                                  ? const CircularProgressIndicator(
                                     color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16,
+                                  )
+                                  : const Text(
+                                    'Registrarme',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                    ),
                                   ),
-                                ),
                         ),
                       ),
                       const SizedBox(height: 10),
@@ -215,15 +222,16 @@ class _RegisterScreenState extends State<RegisterScreen> with SingleTickerProvid
           fontWeight: FontWeight.bold,
         ),
         prefixIcon: Icon(icon, color: Colors.black),
-        suffixIcon: toggleVisibility != null
-            ? IconButton(
-                icon: Icon(
-                  obscureText ? Icons.visibility : Icons.visibility_off,
-                  color: Colors.black,
-                ),
-                onPressed: toggleVisibility,
-              )
-            : null,
+        suffixIcon:
+            toggleVisibility != null
+                ? IconButton(
+                  icon: Icon(
+                    obscureText ? Icons.visibility : Icons.visibility_off,
+                    color: Colors.black,
+                  ),
+                  onPressed: toggleVisibility,
+                )
+                : null,
         filled: true,
         fillColor: Colors.grey[200],
         enabledBorder: OutlineInputBorder(
@@ -239,7 +247,8 @@ class _RegisterScreenState extends State<RegisterScreen> with SingleTickerProvid
   }
 
   Future<void> _register() async {
-    if (_passwordController.text.trim() != _confirmPasswordController.text.trim()) {
+    if (_passwordController.text.trim() !=
+        _confirmPasswordController.text.trim()) {
       setState(() {
         _error = 'Las contraseñas no coinciden';
       });

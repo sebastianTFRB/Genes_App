@@ -8,7 +8,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:flutter/services.dart';
 
-
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -16,7 +15,8 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStateMixin {
+class _LoginScreenState extends State<LoginScreen>
+    with SingleTickerProviderStateMixin {
   final _auth = FirebaseAuth.instance;
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -104,7 +104,10 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                   // Email TextField
                   TextField(
                     controller: _emailController,
-                    style: const TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w500,
+                    ),
                     decoration: _inputDecoration(
                       label: 'Correo electrónico',
                       icon: Icons.email,
@@ -117,16 +120,22 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                   TextField(
                     controller: _passwordController,
                     obscureText: _obscureText,
-                    style: const TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w500,
+                    ),
                     decoration: _inputDecoration(
                       label: 'Contraseña',
                       icon: Icons.lock,
                       suffixIcon: IconButton(
                         icon: Icon(
-                          _obscureText ? Icons.visibility : Icons.visibility_off,
+                          _obscureText
+                              ? Icons.visibility
+                              : Icons.visibility_off,
                           color: Colors.black,
                         ),
-                        onPressed: () => setState(() => _obscureText = !_obscureText),
+                        onPressed:
+                            () => setState(() => _obscureText = !_obscureText),
                       ),
                     ),
                   ),
@@ -137,12 +146,16 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                     children: [
                       Checkbox(
                         value: _rememberMe,
-                        onChanged: (value) => setState(() => _rememberMe = value!),
+                        onChanged:
+                            (value) => setState(() => _rememberMe = value!),
                         activeColor: Colors.teal,
                       ),
                       const Text(
                         'Recordar este correo',
-                        style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ],
                   ),
@@ -162,7 +175,9 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (_) => const RegisterScreen()),
+                        MaterialPageRoute(
+                          builder: (_) => const RegisterScreen(),
+                        ),
                       );
                     },
                   ),
@@ -200,7 +215,10 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
   }) {
     return InputDecoration(
       labelText: label,
-      labelStyle: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+      labelStyle: const TextStyle(
+        color: Colors.black,
+        fontWeight: FontWeight.bold,
+      ),
       prefixIcon: Icon(icon, color: Colors.black),
       suffixIcon: suffixIcon,
       filled: true,
@@ -227,15 +245,22 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.teal,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(14),
+          ),
           padding: const EdgeInsets.symmetric(vertical: 14),
         ),
-        child: loading
-            ? const CircularProgressIndicator(color: Colors.white)
-            : Text(
-                text,
-                style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
-              ),
+        child:
+            loading
+                ? const CircularProgressIndicator(color: Colors.white)
+                : Text(
+                  text,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
       ),
     );
   }
@@ -250,20 +275,30 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
         onPressed: onPressed,
         style: OutlinedButton.styleFrom(
           side: const BorderSide(color: Colors.black45, width: 2),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(14),
+          ),
           padding: const EdgeInsets.symmetric(vertical: 14),
         ),
         child: Text(
           text,
-          style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 16),
+          style: const TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
+          ),
         ),
       ),
     );
   }
 
   Future<void> _signInWithEmail() async {
-    if (_emailController.text.trim().isEmpty || _passwordController.text.trim().isEmpty) {
-      setState(() => _error = 'Por favor completa todos los campos para iniciar sesión');
+    if (_emailController.text.trim().isEmpty ||
+        _passwordController.text.trim().isEmpty) {
+      setState(
+        () =>
+            _error = 'Por favor completa todos los campos para iniciar sesión',
+      );
       return;
     }
 
@@ -300,14 +335,21 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
       final user = userCredential.user;
 
       if (user != null) {
-        final userDoc = await FirebaseFirestore.instance.collection('users').doc(user.uid).get();
+        final userDoc =
+            await FirebaseFirestore.instance
+                .collection('users')
+                .doc(user.uid)
+                .get();
 
         if (!userDoc.exists) {
-          await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
-            'email': user.email,
-            'role': 'patient',
-            'created_at': DateTime.now(),
-          });
+          await FirebaseFirestore.instance
+              .collection('users')
+              .doc(user.uid)
+              .set({
+                'email': user.email,
+                'role': 'patient',
+                'created_at': DateTime.now(),
+              });
         }
 
         await _navigateBasedOnRole(user);

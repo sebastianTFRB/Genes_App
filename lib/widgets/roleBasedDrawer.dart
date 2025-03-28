@@ -8,16 +8,12 @@ import 'package:genesapp/medicScreen/viewArticles.dart';
 import 'package:genesapp/pacientScreen/paciente.dart';
 import 'package:genesapp/usersScreen/perfil.dart';
 import 'package:genesapp/login.dart';
-
 import 'package:genesapp/usersScreen/williamspredict.dart';
 
 class RoleBasedDrawer extends StatelessWidget {
   final String? role;
 
-  const RoleBasedDrawer({
-    super.key,
-    required this.role,
-  });
+  const RoleBasedDrawer({super.key, required this.role});
 
   void _handleLogout(BuildContext context) async {
     await FirebaseAuth.instance.signOut();
@@ -27,132 +23,191 @@ class RoleBasedDrawer extends StatelessWidget {
       (route) => false,
     );
   }
+
   @override
   Widget build(BuildContext context) {
-  return Drawer(
-    child: ListView(
-      padding: EdgeInsets.zero,
-      children: [
-        Container(
-          height: 140,
-          width: double.infinity,
-          
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Color(0xFF43cea2), Color(0xFF185a9d)],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
+    return Drawer(
+      child: Column(
+        children: [
+          // LOGO ARRIBA - sin SafeArea
+          Container(
+            height: 180,
+            width: double.infinity,
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Color(0xFF43cea2), Color(0xFF185a9d)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
             ),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(30),
-            child: FittedBox(
-              fit: BoxFit.contain,
-              child: Image.asset('assets/images/GenesApp2.png'),
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 40),
+                child: FittedBox(
+                  fit: BoxFit.contain,
+                  child: Image.asset(
+                    'assets/images/GenesApp2.png',
+                    height: 180,
+                  ),
+                ),
+              ),
             ),
           ),
 
-        ),
+          // LISTA PROTEGIDA SOLO ABAJO
+          Expanded(
+            child: SafeArea(
+              top: false,
+              bottom: true,
+              child: ListView(
+                padding: EdgeInsets.zero,
+                children: [
+                  if (role == 'admin') ...[
+                    _buildSectionLabel('ADMINISTRADOR'),
+                    _buildListTile(
+                      icon: Icons.admin_panel_settings,
+                      color: Colors.blueAccent,
+                      text: 'Panel de Administrador',
+                      onTap:
+                          () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const AdminScreen(),
+                            ),
+                          ),
+                    ),
+                    _buildListTile(
+                      icon: Icons.verified_user,
+                      color: Colors.blueAccent,
+                      text: 'Panel de Verificación',
+                      onTap:
+                          () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const AdminVerificationPanel(),
+                            ),
+                          ),
+                    ),
+                  ],
+                  if (role == 'doctor') ...[
+                    _buildSectionLabel('MÉDICO'),
+                    _buildListTile(
+                      icon: Icons.medical_services,
+                      color: Colors.teal,
+                      text: 'Panel de Médico',
+                      onTap:
+                          () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const DoctorScreen(),
+                            ),
+                          ),
+                    ),
+                    _buildListTile(
+                      icon: Icons.article,
+                      color: Colors.teal,
+                      text: 'Subir artículo',
+                      onTap:
+                          () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const SubirArticuloScreen(),
+                            ),
+                          ),
+                    ),
+                    _buildListTile(
+                      icon: Icons.feed,
+                      color: Colors.teal,
+                      text: 'Publicaciones',
+                      onTap:
+                          () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const VerArticulosScreen(),
+                            ),
+                          ),
+                    ),
+                  ],
+                  if (role == 'patient') ...[
+                    _buildSectionLabel('PACIENTE'),
+                    _buildListTile(
+                      icon: Icons.favorite,
+                      color: Colors.pinkAccent,
+                      text: 'Panel de Paciente',
+                      onTap:
+                          () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const HomeScreen(),
+                            ),
+                          ),
+                    ),
+                  ],
+                  _buildSectionLabel('UTILIDADES'),
+                  _buildListTile(
+                    icon: Icons.analytics,
+                    color: Colors.deepPurple,
+                    text: 'Predictividad Williams',
+                    onTap:
+                        () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const Williamspredict(),
+                          ),
+                        ),
+                  ),
+                  const Divider(),
+                  _buildListTile(
+                    icon: Icons.person,
+                    color: Colors.indigo,
+                    text: 'Mi perfil',
+                    onTap:
+                        () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const ProfileScreen(),
+                          ),
+                        ),
+                  ),
+                  _buildListTile(
+                    icon: Icons.logout,
+                    color: Colors.redAccent,
+                    text: 'Cerrar sesión',
+                    onTap: () => _handleLogout(context),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 
-        
-        if (role == 'admin') ...[
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: Text('ADMINISTRADOR', style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 13)),
-          ),
-          ListTile(
-            leading: const Icon(Icons.admin_panel_settings, color: Colors.blueAccent),
-            title: const Text('Panel de Administrador'),
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => const AdminScreen()),
-            ),
-          ),
-          ListTile(
-            leading: const Icon(Icons.verified_user, color: Colors.blueAccent),
-            title: const Text('Panel de Verificación'),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const AdminVerificationPanel()),
-              );
-            },
-          ),
-        ],
-        if (role == 'doctor') ...[
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: Text('MÉDICO', style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 13)),
-          ),
-          ListTile(
-            leading: const Icon(Icons.medical_services, color: Colors.teal),
-            title: const Text('Panel de Médico'),
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => const DoctorScreen()),
-            ),
-          ),
-          ListTile(
-            leading: const Icon(Icons.article, color: Colors.teal),
-            title: const Text('subir articulo'),
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => const SubirArticuloScreen()),
-            ),
-          ),
-          ListTile(
-            leading: const Icon(Icons.feed, color: Colors.teal),
-            title: const Text('publicaciones'),
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => const VerArticulosScreen()),
-            ),
-          ),
-        ],
-        if (role == 'patient') ...[
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: Text('PACIENTE', style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 13)),
-          ),
-          ListTile(
-            leading: const Icon(Icons.favorite, color: Colors.pinkAccent),
-            title: const Text('Panel de Paciente'),
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => const HomeScreen()),
-            ),
-          ),
-        ],
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          child: Text('UTILIDADES', style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 13)),
+  Widget _buildListTile({
+    required IconData icon,
+    required Color color,
+    required String text,
+    required VoidCallback onTap,
+  }) {
+    return ListTile(
+      leading: Icon(icon, color: color),
+      title: Text(text),
+      onTap: onTap,
+    );
+  }
+
+  Widget _buildSectionLabel(String label) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      child: Text(
+        label,
+        style: const TextStyle(
+          color: Colors.grey,
+          fontWeight: FontWeight.bold,
+          fontSize: 13,
         ),
-        ListTile(
-          leading: const Icon(Icons.analytics, color: Colors.deepPurple),
-          title: const Text('predictividad williams'),
-          onTap: () => Navigator.push(
-            context,
-            MaterialPageRoute(builder: (_) => const Williamspredict()),
-          ),
-        ),
-        const Divider(),
-        ListTile(
-          leading: const Icon(Icons.person, color: Colors.indigo),
-          title: const Text('Mi perfil'),
-          onTap: () => Navigator.push(
-            context,
-            MaterialPageRoute(builder: (_) => const ProfileScreen()),
-          ),
-        ),
-        ListTile(
-          leading: const Icon(Icons.logout, color: Colors.redAccent),
-          title: const Text('Cerrar sesión'),
-          onTap: () => _handleLogout(context),
-        ),
-      ],
-    ),
-  );
+      ),
+    );
+  }
 }
-
-}
-  

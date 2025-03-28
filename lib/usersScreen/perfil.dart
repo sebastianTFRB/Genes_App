@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:genesapp/pacientScreen/verificacion_medico_screen.dart';
 import 'package:genesapp/widgets/custom_app_bar.dart';
 import 'package:genesapp/widgets/custom_app_bar_simple.dart';
 import 'package:genesapp/widgets/mostrarVerificacion.dart';
@@ -27,7 +28,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Future<void> fetchUserData() async {
     try {
       if (user != null) {
-        final doc = await FirebaseFirestore.instance.collection('users').doc(user!.uid).get();
+        final doc =
+            await FirebaseFirestore.instance
+                .collection('users')
+                .doc(user!.uid)
+                .get();
         if (doc.exists) {
           setState(() {
             userData = doc.data();
@@ -48,41 +53,52 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     await showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: const Text("Cambiar contraseña"),
-        content: TextField(
-          controller: newPasswordController,
-          obscureText: true,
-          decoration: const InputDecoration(labelText: 'Nueva contraseña'),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text("Cancelar"),
+      builder:
+          (context) => AlertDialog(
+            title: const Text("Cambiar contraseña"),
+            content: TextField(
+              controller: newPasswordController,
+              obscureText: true,
+              decoration: const InputDecoration(labelText: 'Nueva contraseña'),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text("Cancelar"),
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  try {
+                    await user!.updatePassword(newPasswordController.text);
+                    Navigator.pop(context);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text("Contraseña actualizada exitosamente"),
+                      ),
+                    );
+                  } catch (e) {
+                    Navigator.pop(context);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text("Error al actualizar la contraseña"),
+                      ),
+                    );
+                  }
+                },
+                child: const Text("Guardar"),
+              ),
+            ],
           ),
-          ElevatedButton(
-            onPressed: () async {
-              try {
-                await user!.updatePassword(newPasswordController.text);
-                Navigator.pop(context);
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text("Contraseña actualizada exitosamente")),
-                );
-              } catch (e) {
-                Navigator.pop(context);
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text("Error al actualizar la contraseña")),
-                );
-              }
-            },
-            child: const Text("Guardar"),
-          ),
-        ],
-      ),
     );
   }
 
-  Widget perfilInfoTile(IconData icon, String title, String subtitle, VoidCallback? onTap) {
+  Widget perfilInfoTile(
+    IconData icon,
+    String title,
+    String subtitle,
+    VoidCallback? onTap, {
+    bool isGreen = false,
+  }) {
     return InkWell(
       onTap: onTap,
       child: Padding(
@@ -91,8 +107,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
           children: [
             CircleAvatar(
               radius: 18,
-              backgroundColor: Colors.blueAccent.withOpacity(0.1),
-              child: Icon(icon, color: Colors.blueAccent, size: 22),
+              backgroundColor:
+                  isGreen
+                      ? Colors.green.withOpacity(0.1)
+                      : Colors.blueAccent.withOpacity(0.1),
+              child: Icon(
+                icon,
+                color: isGreen ? Colors.green : Colors.blueAccent,
+                size: 22,
+              ),
             ),
             const SizedBox(width: 12),
             Column(
@@ -108,10 +131,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 Text(
                   subtitle,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    color: Colors.grey,
-                  ),
+                  style: const TextStyle(fontSize: 14, color: Colors.grey),
                 ),
               ],
             ),
@@ -122,23 +142,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   @override
-Widget build(BuildContext context) {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  Widget build(BuildContext context) {
+    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  return Scaffold(
-    key: _scaffoldKey,
-    drawer: Drawer(), // Aquí puedes agregar opciones de navegación personalizadas
-    appBar: const CustomAppBarSimple (
-      title: "Mi Perfil",
-      color: Colors.blueAccent,
-      mostrarBotonPerfil: false,
-      
-    ),
-    body: isLoading
-        ? const Center(child: CircularProgressIndicator())
-        : userData == null
-            ? Center(child: Text(error.isNotEmpty ? error : 'Usuario no encontrado'))
-            : SingleChildScrollView(
+    return Scaffold(
+      key: _scaffoldKey,
+      drawer:
+          Drawer(), // Aquí puedes agregar opciones de navegación personalizadas
+      appBar: const CustomAppBarSimple(
+        title: "Mi Perfil",
+        color: Colors.blueAccent,
+        mostrarBotonPerfil: false,
+      ),
+      body:
+          isLoading
+              ? const Center(child: CircularProgressIndicator())
+              : userData == null
+              ? Center(
+                child: Text(error.isNotEmpty ? error : 'Usuario no encontrado'),
+              )
+              : SingleChildScrollView(
                 padding: const EdgeInsets.all(20),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -179,7 +202,10 @@ Widget build(BuildContext context) {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
-                        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 12,
+                          horizontal: 24,
+                        ),
                       ),
                       child: const Text(
                         "Cambiar contraseña",
@@ -192,12 +218,27 @@ Widget build(BuildContext context) {
                     ),
                     const SizedBox(height: 20),
                     const Divider(color: Colors.blueGrey),
-                    perfilInfoTile(
-                      Icons.verified,
-                      "Verificación Médica",
-                      "Sube tus credenciales",
-                      () => mostrarVerificacionMedica(context),
-                    ),
+                    if (userData!["role"] == 'doctor') ...[
+                      perfilInfoTile(
+                        Icons.verified,
+                        "Verificación Médica",
+                        "Verificado",
+                        () => mostrarVerificacionMedica(context),
+                        isGreen: true,
+                      ),
+                    ] else ...[
+                      perfilInfoTile(
+                        Icons.verified,
+                        "Verificación Médica",
+                        "Sube tus credenciales",
+                        () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const VerificarMedicoScreen(),
+                          ),
+                        ),
+                      ),
+                    ],
                     perfilInfoTile(
                       Icons.history,
                       "Historial de Predicciones",
@@ -239,7 +280,6 @@ Widget build(BuildContext context) {
                   ],
                 ),
               ),
-  );
-}
-
+    );
+  }
 }

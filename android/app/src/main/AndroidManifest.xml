@@ -1,18 +1,25 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.genesapp">
 
-    <!-- Permisos para lectura de archivos -->
+    <!-- Permisos necesarios para acceder a la cámara y al almacenamiento -->
+    <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    
+    <!-- Permisos para acceder a imágenes y videos en Android 11+ -->
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+    
+    <!-- Para versiones anteriores de Android -->
     <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
-
+    
+    <!-- Configuración para almacenamiento en Android 10 y versiones anteriores -->
     <application
         android:requestLegacyExternalStorage="true"
         android:label="genesapp"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
-        
+
         <activity
             android:name=".MainActivity"
             android:exported="true"

@@ -1,0 +1,13 @@
+{
+  "nombre": "diego",
+  "cedula": "100",
+  "direccion": "jskf",
+  "institucion": "bzbdnd",
+  "rethus": "18171",
+  "email": "usuario@ejemplo.com",
+  "documentos": [
+    "/verificacion/archivo/100/20250329_164604_IMG-20250328-WA0002.jpg"
+  ],
+  "estado": "pendiente",
+  "fecha_envio": "2025-03-29T16:46:04.406130"
+}

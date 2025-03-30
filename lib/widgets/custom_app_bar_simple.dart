@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:genesapp/usersScreen/perfil.dart';
 
-class CustomAppBarSimple extends StatelessWidget implements PreferredSizeWidget {
+class CustomAppBarSimple extends StatelessWidget
+    implements PreferredSizeWidget {
   final String title;
   final Color color;
   final bool mostrarBotonPerfil;
@@ -19,7 +20,7 @@ class CustomAppBarSimple extends StatelessWidget implements PreferredSizeWidget 
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [Colors.blue.shade500, color],
+          colors: [const Color.fromARGB(255, 38, 244, 72), color],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),

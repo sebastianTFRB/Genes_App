@@ -19,7 +19,7 @@ class CustomAppBarWithDrawer extends StatelessWidget implements PreferredSizeWid
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [Colors.blue.shade500, color],
+          colors: [const Color.fromARGB(255, 33, 150, 243), color],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),

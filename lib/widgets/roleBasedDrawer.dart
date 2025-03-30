@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:genesapp/adminScreen/admin.dart';
 import 'package:genesapp/adminScreen/adminrequest.dart';
+import 'package:genesapp/adminScreen/verificacion_screen.dart';
 import 'package:genesapp/medicScreen/articles.dart';
 import 'package:genesapp/medicScreen/medico.dart';
 import 'package:genesapp/medicScreen/viewArticles.dart';
@@ -79,12 +80,25 @@ class RoleBasedDrawer extends StatelessWidget {
                     _buildListTile(
                       icon: Icons.verified_user,
                       color: Colors.blueAccent,
-                      text: 'Panel de Verificación',
+                      text: 'Panel de Publicaciones',
                       onTap:
                           () => Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (_) => const AdminVerificationPanel(),
+                            ),
+                          ),
+                    ),
+                    _buildListTile(
+                      icon: Icons.verified_user,
+                      color: Colors.blueAccent,
+                      text: 'Verifaciones Pendientes',
+                      onTap:
+                          () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder:
+                                  (_) => const AdminVerificacionPendiente(),
                             ),
                           ),
                     ),

@@ -13,7 +13,8 @@ class Williamspredict extends StatefulWidget {
 class WilliamspredictState extends State<Williamspredict> {
   final _formKey = GlobalKey<FormState>();
   
-  // Marking _formData as final since it's only initialized once and not reassigned.
+  final ScrollController _scrollController = ScrollController(); // Controlador para el desplazamiento
+
   final Map<String, int> _formData = {
     'TALLA/EDAD (ACTUAL)_0': 0,
     'TALLA/EDAD (ACTUAL)_Alto': 0,
@@ -75,13 +76,15 @@ class WilliamspredictState extends State<Williamspredict> {
     'ALTERACIONES HORMONALES (Pubertad tardía, alteraciones tiroideas adicionales)': 0,
     'DIABETES INFANTIL O INTOLERANCIA A LA GLUCOSA': 0,
     'DÉFICIT DE CRECIMIENTO': 0,
-  }; 
+  };
 
   String? resultado;
   double? probabilidad;
 
+  int _currentCardIndex = 0;
+
   Future<void> _enviarFormulario() async {
-    const url = 'http://192.168.20.10:5000/predict'; // Cambia esto por tu IP local
+    const url = 'http://10.162.67.75:5000/predict'; // Cambia esto por tu IP local
     try {
       final response = await http.post(
         Uri.parse(url),
@@ -103,20 +106,100 @@ class WilliamspredictState extends State<Williamspredict> {
     }
   }
 
-  Widget _buildSwitch(String label, String keyName) {
-    return SwitchListTile(
-      title: Text(label),
-      value: _formData[keyName] == 1, // Usar 1 para true y 0 para false
-      onChanged: (bool value) {
-        setState(() {
-          _formData[keyName] = value ? 1 : 0; // Convertir true/false a 1/0
-        });
-      },
+  void _setAnswer(String key, int value) {
+    setState(() {
+      _formData[key] = value;
+      if (_currentCardIndex < campos.length - 1) {
+        _currentCardIndex++;
+        _scrollToNextQuestion();
+      }
+    });
+  }
+
+  final List<GlobalKey> _keys = List.generate(100, (index) => GlobalKey());
+
+  void _scrollToNextQuestion() {
+    final context = _keys[_currentCardIndex].currentContext;
+    if (context != null) {
+      Scrollable.ensureVisible(
+        context,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.easeInOut,
+        alignment: 0.5,
+      );
+    }
+  }
+
+  Widget _buildCard(Map<String, String> campo, bool isActive, int index) {
+    String respuesta = _formData[campo['key']!] == 1 ? 'Sí' : (_formData[campo['key']!] == 0 ? 'No' : '');
+
+    return AnimatedContainer(
+      key: _keys[index],
+      duration: const Duration(milliseconds: 300),
+      margin: const EdgeInsets.symmetric(vertical: 16.0),
+      height: isActive ? 220 : 140, // Un poco más de altura para la tarjeta activa
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(15),
+        color: isActive ? Colors.blueAccent : Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black12,
+            blurRadius: 10,
+            offset: const Offset(0, 5),
+          ),
+        ],
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              campo['label']!,
+              style: TextStyle(
+                fontSize: 20,
+                color: isActive ? Colors.white : Colors.black,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            if (isActive) ...[
+              const SizedBox(height: 30),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  FloatingActionButton(
+                    heroTag: "yesBtn",
+                    onPressed: () => _setAnswer(campo['key']!, 1),
+                    child: const Icon(Icons.check),
+                    backgroundColor: Colors.green,
+                    elevation: 5,
+                  ),
+                  const SizedBox(width: 30),
+                  FloatingActionButton(
+                    heroTag: "noBtn",
+                    onPressed: () => _setAnswer(campo['key']!, 0),
+                    child: const Icon(Icons.close),
+                    backgroundColor: Colors.red,
+                    elevation: 5,
+                  ),
+                ],
+              ),
+            ],
+            if (!isActive && respuesta.isNotEmpty) ...[
+              const SizedBox(height: 15),
+              Text(
+                'Respuesta: $respuesta',
+                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),
+              ),
+            ],
+          ],
+        ),
+      ),
     );
   }
 
   final List<Map<String, String>> campos = [
-    // Añade tus campos aquí
     {'label': 'TALLA/EDAD (ACTUAL)_0', 'key': 'TALLA/EDAD (ACTUAL)_0'},
     {'label': 'TALLA/EDAD (ACTUAL)_Alto', 'key': 'TALLA/EDAD (ACTUAL)_Alto'},
     {'label': 'TALLA/EDAD (ACTUAL)_Bajo', 'key': 'TALLA/EDAD (ACTUAL)_Bajo'},
@@ -186,29 +269,21 @@ class WilliamspredictState extends State<Williamspredict> {
         title: "Predictividad Williams",
         color: Colors.blueAccent,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: ListView(
+      body: SafeArea(
+        child: SingleChildScrollView(
+          controller: _scrollController,
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
             children: [
-              ...campos.map((campo) => _buildSwitch(campo['label']!, campo['key']!)).toList(),
+              for (int index = 0; index < campos.length; index++)
+                _buildCard(campos[index], index == _currentCardIndex, index),
               const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    _formKey.currentState!.save();
-                    _enviarFormulario();
-                  }
-                },
-                child: const Text("Enviar"),
-              ),
               if (resultado != null) ...[
                 const SizedBox(height: 20),
                 Text("Resultado: $resultado", style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                 if (probabilidad != null)
                   Text("Probabilidad: ${(probabilidad! * 100).toStringAsFixed(2)}%"),
-              ]
+              ],
             ],
           ),
         ),

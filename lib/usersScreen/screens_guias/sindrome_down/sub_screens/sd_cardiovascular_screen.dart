@@ -33,12 +33,12 @@ class CardiovascularDownScreen extends StatelessWidget {
                     onTap:
                         () => _openImageFullScreen(
                           context,
-                          "assets/images/down_corazon.jpg",
+                          "assets/images/down/Grace-DS.webp",
                         ),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20),
                       child: Image.asset(
-                        "assets/images/down_corazon.jpg",
+                        "assets/images/down/Grace-DS.webp",
                         height: 220,
                         fit: BoxFit.contain,
                       ),

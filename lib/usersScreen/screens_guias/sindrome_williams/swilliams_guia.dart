@@ -25,7 +25,7 @@ class GuiaSindromeWilliams extends StatelessWidget {
                 child: FadeIn(
                   duration: const Duration(milliseconds: 400),
                   child: Image.asset(
-                    "assets/images/sindrome_williams.jpg",
+                    "assets/images/williams/williams-2.webp",
                     height: 220,
                     fit: BoxFit.cover,
                   ),

@@ -32,12 +32,12 @@ class FenotipoMpsScreen extends StatelessWidget {
                   child: GestureDetector(
                     onTap: () => _openImageFullScreen(
                       context,
-                      "assets/images/fenotipo_mps.jpg",
+                      "assets/images/muco/2.webp",
                     ),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20),
                       child: Image.asset(
-                        "assets/images/fenotipo_mps.jpg",
+                        "assets/images/muco/2.webp",
                         height: 220,
                         fit: BoxFit.contain,
                       ),
@@ -67,31 +67,31 @@ class FenotipoMpsScreen extends StatelessWidget {
                 context,
                 "Facies tosca",
                 "Frente prominente, labios gruesos, nariz ancha con puente nasal deprimido, mejillas llenas.",
-                "assets/images/facies_mps.jpg",
+                "assets/images/muco/4.webp",
               ),
               _buildFeatureCard(
                 context,
                 "Talla baja",
                 "Talla baja desproporcionada, más evidente con el crecimiento.",
-                "assets/images/talla_baja_mps.jpg",
+                "assets/images/muco/3.jpg",
               ),
               _buildFeatureCard(
                 context,
                 "Deformidades óseas",
                 "Cifosis, escoliosis, genu valgo y disostosis múltiple.",
-                "assets/images/oseas_mps.jpg",
+                "assets/images/muco/5.jpg",
               ),
               _buildFeatureCard(
                 context,
                 "Rigidez articular",
                 "Pérdida progresiva de movilidad, contracturas y limitación de la extensión.",
-                "assets/images/rigidez_mps.jpg",
+                "assets/images/muco/6.webp",
               ),
               _buildFeatureCard(
                 context,
                 "Hepatoesplenomegalia",
                 "Aumento de tamaño del hígado y bazo palpable al examen físico.",
-                "assets/images/hepatomegalia_mps.jpg",
+                "assets/images/muco/7.webp",
               ),
               const SizedBox(height: 30),
               FadeInLeft(

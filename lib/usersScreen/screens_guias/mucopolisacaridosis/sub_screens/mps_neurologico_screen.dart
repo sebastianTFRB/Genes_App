@@ -32,12 +32,12 @@ class NeurologicoMpsScreen extends StatelessWidget {
                   child: GestureDetector(
                     onTap: () => _openImageFullScreen(
                       context,
-                      "assets/images/neurologico_mps.jpg",
+                      "assets/images/muco/8.webp",
                     ),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20),
                       child: Image.asset(
-                        "assets/images/neurologico_mps.jpg",
+                        "assets/images/muco/8.webp",
                         height: 220,
                         fit: BoxFit.contain,
                       ),

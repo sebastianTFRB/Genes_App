@@ -32,7 +32,7 @@ class DiagnosticoDownScreen extends StatelessWidget {
                   child: FadeIn(
                     duration: const Duration(milliseconds: 600),
                     child: Image.asset(
-                      "assets/images/diagnostico_down.jpg",
+                      "assets/images/down/Down-Syndrome-14.webp",
                       height: 220,
                       fit: BoxFit.cover,
                     ),

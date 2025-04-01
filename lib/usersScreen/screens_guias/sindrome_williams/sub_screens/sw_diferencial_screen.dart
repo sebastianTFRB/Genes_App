@@ -32,7 +32,7 @@ class DiagnosticoDiferencialScreen extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(20),
                     child: Image.asset(
-                      "assets/images/diferencial.jpg",
+                      "assets/images/williams/williams-3.webp",
                       height: 220,
                       fit: BoxFit.cover,
                     ),

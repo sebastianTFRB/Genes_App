@@ -32,7 +32,7 @@ class CognitivoConductualScreen extends StatelessWidget {
                   child: FadeIn(
                     duration: const Duration(milliseconds: 400),
                     child: Image.asset(
-                      "assets/images/cognitivo_sindrome_williams.jpg",
+                      "assets/images/williams/williams-5.webp",
                       height: 220,
                       fit: BoxFit.cover,
                     ),

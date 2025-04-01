@@ -33,12 +33,12 @@ class CardiopulmonarMpsScreen extends StatelessWidget {
                     onTap:
                         () => _openImageFullScreen(
                           context,
-                          "assets/images/cardiopulmonar_mps.jpg",
+                          "assets/images/muco/9.webp",
                         ),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20),
                       child: Image.asset(
-                        "assets/images/cardiopulmonar_mps.jpg",
+                        "assets/images/muco/9.webp",
                         height: 220,
                         fit: BoxFit.contain,
                       ),

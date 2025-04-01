@@ -33,12 +33,12 @@ class FenotipoWilliamsScreen extends StatelessWidget {
                     onTap:
                         () => _openImageFullScreen(
                           context,
-                          "assets/images/fenotipo_williams.jpg",
+                          "assets/images/williams/WS2.png",
                         ),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20),
                       child: Image.asset(
-                        "assets/images/fenotipo_williams.jpg",
+                        "assets/images/williams/WS2.png",
                         height: 220,
                         fit: BoxFit.contain,
                       ),
@@ -69,31 +69,31 @@ class FenotipoWilliamsScreen extends StatelessWidget {
                 context,
                 "Rostro de duende",
                 "Frente amplia, nariz corta y respingada, labios gruesos, boca grande con comisuras caídas.",
-                "assets/images/genesappLogo-removebg-preview.png",
+                "assets/images/williams/WS3.webp",
               ),
               _buildFeatureCard(
                 context,
                 "Ojos",
                 "Iris estrellado especialmente en niños con ojos claros, con pliegue epicántico leve.",
-                "assets/images/ojos_williams.jpg",
+                "assets/images/williams/WS4.jpeg",
               ),
               _buildFeatureCard(
                 context,
                 "Dientes",
                 "Hipodoncia, maloclusión dental y esmalte deficiente.",
-                "assets/images/dientes_williams.jpg",
+                "assets/images/williams/WS5.jpg",
               ),
               _buildFeatureCard(
                 context,
                 "Cabello",
                 "Ondulado, fino y de textura suave.",
-                "assets/images/cabello_williams.jpg",
+                "assets/images/williams/WS6.jpg",
               ),
               _buildFeatureCard(
                 context,
                 "Talla",
                 "Baja en relación a la edad, visible en los controles pediátricos.",
-                "assets/images/talla_baja.jpg",
+                "assets/images/williams/WS7.webp",
               ),
 
               const SizedBox(height: 30),

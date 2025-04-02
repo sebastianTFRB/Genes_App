@@ -144,6 +144,7 @@ class _AdminVerificacionPanelState extends State<AdminVerificacionPendiente> {
       appBar: const CustomAppBarSimple(
         title: 'Panel de Verificación Médica',
         color: Color.fromARGB(255, 33, 150, 243),
+        backgroundColor: Colors.blueAccent,
       ),
       backgroundColor: const Color(0xFFF6FFF9),
       body:

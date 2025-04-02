@@ -48,6 +48,7 @@ class _PerfilUsuarioScreenState extends State<PerfilUsuarioScreen> {
     return Scaffold(
       appBar: const CustomAppBarSimple(
         title: "Perfil del autor",
+        backgroundColor: Colors.blueAccent,
         color: Colors.blueAccent,
       ),
       body: isLoading

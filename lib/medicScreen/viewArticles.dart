@@ -15,9 +15,11 @@ class VerArticulosScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       appBar: const CustomAppBarSimple(
               title: "Artículos Publicados",
               color: Colors.blueAccent,
+              backgroundColor: Colors.blueAccent,
             ),
 
       body: StreamBuilder<QuerySnapshot>(

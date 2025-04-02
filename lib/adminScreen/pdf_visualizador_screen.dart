@@ -13,6 +13,7 @@ class PdfViewerScreen extends StatelessWidget {
       appBar: const CustomAppBarSimple(
         title: 'Visualizador de PDF',
         color: Color.fromARGB(255, 33, 150, 243),
+        backgroundColor: Colors.blueAccent,
         mostrarBotonPerfil: false,
       ),
       backgroundColor: const Color(0xFFF6FFF9),

@@ -23,6 +23,7 @@ class AdminVerificationPanel extends StatelessWidget {
       appBar: const CustomAppBarSimple(
         title: "Artículos Publicados",
         color: Colors.blueAccent,
+        backgroundColor: Colors.blueAccent,
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance

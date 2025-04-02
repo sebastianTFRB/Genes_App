@@ -11,7 +11,7 @@ class CustomAppBarSimple extends StatelessWidget
     super.key,
     required this.title,
     required this.color,
-    this.mostrarBotonPerfil = true,
+    this.mostrarBotonPerfil = true, required MaterialAccentColor backgroundColor,
   });
 
   @override

@@ -136,6 +136,7 @@ class _VerificarMedicoScreenState extends State<VerificarMedicoScreen> {
     return Scaffold(
       appBar: const CustomAppBarSimple(
         title: 'Verificar Médico',
+        backgroundColor: Colors.blueAccent,
         color: Color(0xFF00B894),
       ),
       backgroundColor: Colors.white,

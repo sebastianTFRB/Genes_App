@@ -156,6 +156,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       appBar: const CustomAppBarSimple(
         title: "Mi Perfil",
         color: Colors.blueAccent,
+        backgroundColor: Colors.blueAccent,
         mostrarBotonPerfil: false,
       ),
       body:

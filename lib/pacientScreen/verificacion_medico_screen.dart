@@ -52,10 +52,11 @@ class _VerificarMedicoScreenState extends State<VerificarMedicoScreen> {
       );
       return;
     }
-
-    var uri = Uri.parse('http://192.168.20.30:5001/verificacion/enviar');
+    
+    var uri = Uri.parse(
+      'https://genesapp.centralus.cloudapp.azure.com/api1/verificacion/enviar',
+    );
     var request = http.MultipartRequest('POST', uri);
-
     request.fields['nombre'] = _nameController.text.trim();
     request.fields['cedula'] = _cedulaController.text.trim();
     request.fields['direccion'] = _addressController.text.trim();
@@ -71,6 +72,8 @@ class _VerificarMedicoScreenState extends State<VerificarMedicoScreen> {
     }
 
     final response = await request.send();
+    print('STATUS CODE: ${response.statusCode}');
+    print('REASON PHRASE: ${response.reasonPhrase}');
 
     if (response.statusCode == 200) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -79,7 +82,11 @@ class _VerificarMedicoScreenState extends State<VerificarMedicoScreen> {
       Navigator.pop(context);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('❌ Error al enviar la verificación')),
+        SnackBar(
+          content: Text(
+            '❌ Error al enviar la verificación: ${response.statusCode}',
+          ),
+        ),
       );
     }
   }

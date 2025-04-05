@@ -16,7 +16,7 @@
     <!-- Configuración para almacenamiento en Android 10 y versiones anteriores -->
     <application
         android:requestLegacyExternalStorage="true"
-        android:label="genesapp"
+        android:label="Genes App"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
 

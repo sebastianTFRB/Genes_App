@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:genesapp/medicScreen/visorodf.dart';
+import 'package:genesapp/usersScreen/pdf_visualizador_screen.dart';
 import 'package:genesapp/usersScreen/perfilview.dart';
-import 'package:genesapp/widgets/custom_app_bar_simple.dart'; // Asume que existe esta pantalla
+import 'package:genesapp/widgets/custom_app_bar_simple.dart';
 
 class VerArticulosScreen extends StatelessWidget {
   const VerArticulosScreen({super.key});
@@ -16,15 +16,15 @@ class VerArticulosScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const CustomAppBarSimple(
-              title: "Artículos Publicados",
-              color: Colors.blueAccent,
-            ),
-
+        title: "Artículos Publicados",
+        color: Colors.blueAccent,
+      ),
       body: StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance
-            .collection('articulos_medicos')
-            .orderBy('fecha', descending: true)
-            .snapshots(),
+        stream:
+            FirebaseFirestore.instance
+                .collection('articulos_medicos')
+                .orderBy('fecha', descending: true)
+                .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
@@ -41,21 +41,28 @@ class VerArticulosScreen extends StatelessWidget {
             itemBuilder: (context, index) {
               final data = articulos[index].data() as Map<String, dynamic>;
               final nombre = data['nombreArchivo'] ?? 'Sin nombre';
+              final url =
+                  'https://genesapp.centralus.cloudapp.azure.com/api2/upload/$nombre';
               final email = data['email'] ?? 'Desconocido';
-              final fecha = data['fecha'] != null ? _formatearFecha(data['fecha']) : 'Sin fecha';
-              final fotoPerfil = data['fotoPerfil'] ?? ''; // Asegúrate de guardar esto al publicar
+              final fecha =
+                  data['fecha'] != null
+                      ? _formatearFecha(data['fecha'])
+                      : 'Sin fecha';
+              final fotoPerfil = data['fotoPerfil'] ?? '';
               final uid = data['uid'] ?? '';
 
               return Card(
                 margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                 elevation: 3,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
                 child: Padding(
                   padding: const EdgeInsets.all(12),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      /// Header del autor
+                      // 👤 Encabezado con autor
                       Row(
                         children: [
                           GestureDetector(
@@ -68,9 +75,13 @@ class VerArticulosScreen extends StatelessWidget {
                               );
                             },
                             child: CircleAvatar(
-                              backgroundImage: fotoPerfil.isNotEmpty
-                                  ? NetworkImage(fotoPerfil)
-                                  : const AssetImage("assets/images/default_user.png") as ImageProvider,
+                              backgroundImage:
+                                  fotoPerfil.isNotEmpty
+                                      ? NetworkImage(fotoPerfil)
+                                      : const AssetImage(
+                                            "assets/images/default_user.png",
+                                          )
+                                          as ImageProvider,
                               radius: 22,
                             ),
                           ),
@@ -80,27 +91,38 @@ class VerArticulosScreen extends StatelessWidget {
                             children: [
                               Text(
                                 email,
-                                style: const TextStyle(fontWeight: FontWeight.bold),
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                               Text(
                                 fecha,
-                                style: const TextStyle(color: Colors.grey, fontSize: 12),
+                                style: const TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 12,
+                                ),
                               ),
                             ],
                           ),
                         ],
                       ),
+
                       const SizedBox(height: 12),
 
-                      /// Nombre del artículo
+                      // 📄 Nombre del artículo
                       Text(
                         nombre,
-                        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
                       ),
 
                       const SizedBox(height: 10),
 
-                      /// Botón para ver el PDF
+                      // 📎 Botón de ver artículo PDF
                       Align(
                         alignment: Alignment.centerRight,
                         child: TextButton.icon(
@@ -108,12 +130,18 @@ class VerArticulosScreen extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (_) => VisorPdfScreen(nombreArchivo: nombre),
+                                builder: (_) => PdfViewerScreen(url: url),
                               ),
                             );
                           },
-                          icon: const Icon(Icons.picture_as_pdf, color: Colors.red),
-                          label: const Text('Ver artículo', style: TextStyle(color: Colors.red)),
+                          icon: const Icon(
+                            Icons.picture_as_pdf,
+                            color: Colors.red,
+                          ),
+                          label: const Text(
+                            'Ver artículo',
+                            style: TextStyle(color: Colors.red),
+                          ),
                         ),
                       ),
                     ],

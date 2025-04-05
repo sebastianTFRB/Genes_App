@@ -21,7 +21,10 @@ class _SubirArticuloScreenState extends State<SubirArticuloScreen> {
   String? _mensaje;
 
   Future<void> _seleccionarArchivo() async {
-    final result = await FilePicker.platform.pickFiles(type: FileType.custom, allowedExtensions: ['pdf']);
+    final result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['pdf'],
+    );
     if (result != null && result.files.single.path != null) {
       setState(() => _archivo = File(result.files.single.path!));
     }
@@ -37,11 +40,14 @@ class _SubirArticuloScreenState extends State<SubirArticuloScreen> {
       _mensaje = null;
     });
 
-    final uri = Uri.parse('http://10.0.2.2:5000/upload');
-    
+    final uri = Uri.parse(
+      'https://genesapp.centralus.cloudapp.azure.com/api2/upload',
+    );
 
     final request = http.MultipartRequest('POST', uri);
-    request.files.add(await http.MultipartFile.fromPath('file', _archivo!.path));
+    request.files.add(
+      await http.MultipartFile.fromPath('file', _archivo!.path),
+    );
     request.fields['uid'] = user.uid;
     request.fields['email'] = user.email ?? '';
 
@@ -59,7 +65,6 @@ class _SubirArticuloScreenState extends State<SubirArticuloScreen> {
           'email': user.email,
           'fecha': Timestamp.now(),
         });
-
 
         setState(() => _mensaje = 'Archivo subido correctamente ✅');
       } else {
@@ -91,15 +96,16 @@ class _SubirArticuloScreenState extends State<SubirArticuloScreen> {
               const SizedBox(height: 10),
               ElevatedButton(
                 onPressed: _isUploading ? null : _subirArchivo,
-                child: _isUploading
-                    ? const CircularProgressIndicator()
-                    : const Text("Subir Artículo"),
+                child:
+                    _isUploading
+                        ? const CircularProgressIndicator()
+                        : const Text("Subir Artículo"),
               ),
             ],
             if (_mensaje != null) ...[
               const SizedBox(height: 20),
               Text(_mensaje!, style: const TextStyle(fontSize: 16)),
-            ]
+            ],
           ],
         ),
       ),

@@ -5,7 +5,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 import 'package:genesapp/widgets/custom_app_bar_simple.dart';
-import 'package:genesapp/adminScreen/pdf_visualizador_screen.dart';
+import 'package:genesapp/usersScreen/pdf_visualizador_screen.dart';
 
 class AdminVerificacionPendiente extends StatefulWidget {
   const AdminVerificacionPendiente({super.key});
@@ -16,7 +16,8 @@ class AdminVerificacionPendiente extends StatefulWidget {
 }
 
 class _AdminVerificacionPanelState extends State<AdminVerificacionPendiente> {
-  final String baseUrl = 'http://192.168.20.30:5001';
+  final String baseUrl = 'https://genesapp.centralus.cloudapp.azure.com/api1';
+
   List<Map<String, dynamic>> solicitudes = [];
   bool isLoading = false;
 
@@ -75,7 +76,7 @@ class _AdminVerificacionPanelState extends State<AdminVerificacionPendiente> {
   }
 
   Widget _buildDocumentoVisual(String url) {
-    final fullUrl = '$baseUrl$url';
+    final fullUrl = 'https://genesapp.centralus.cloudapp.azure.com$url';
     final uri = Uri.parse(fullUrl);
     final fileName = url.split('/').last.toLowerCase();
 

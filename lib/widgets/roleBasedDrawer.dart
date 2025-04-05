@@ -10,6 +10,7 @@ import 'package:genesapp/pacientScreen/paciente.dart';
 import 'package:genesapp/usersScreen/perfil.dart';
 import 'package:genesapp/login.dart';
 import 'package:genesapp/usersScreen/williamspredict.dart';
+import 'package:genesapp/usersScreen/williamspredict2.dart';
 
 class RoleBasedDrawer extends StatelessWidget {
   final String? role;
@@ -30,7 +31,6 @@ class RoleBasedDrawer extends StatelessWidget {
     return Drawer(
       child: Column(
         children: [
-          // LOGO ARRIBA - sin SafeArea
           Container(
             height: 180,
             width: double.infinity,
@@ -54,8 +54,6 @@ class RoleBasedDrawer extends StatelessWidget {
               ),
             ),
           ),
-
-          // LISTA PROTEGIDA SOLO ABAJO
           Expanded(
             child: SafeArea(
               top: false,
@@ -69,38 +67,34 @@ class RoleBasedDrawer extends StatelessWidget {
                       icon: Icons.admin_panel_settings,
                       color: Colors.blueAccent,
                       text: 'Panel de Administrador',
-                      onTap:
-                          () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => const AdminScreen(),
-                            ),
-                          ),
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const AdminScreen(),
+                        ),
+                      ),
                     ),
                     _buildListTile(
                       icon: Icons.verified_user,
                       color: Colors.blueAccent,
                       text: 'Panel de Publicaciones',
-                      onTap:
-                          () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => const AdminVerificationPanel(),
-                            ),
-                          ),
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const AdminVerificationPanel(),
+                        ),
+                      ),
                     ),
                     _buildListTile(
                       icon: Icons.verified_user,
                       color: Colors.blueAccent,
-                      text: 'Verifaciones Pendientes',
-                      onTap:
-                          () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder:
-                                  (_) => const AdminVerificacionPendiente(),
-                            ),
-                          ),
+                      text: 'Verificaciones Pendientes',
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const AdminVerificacionPendiente(),
+                        ),
+                      ),
                     ),
                   ],
                   if (role == 'doctor') ...[
@@ -109,37 +103,34 @@ class RoleBasedDrawer extends StatelessWidget {
                       icon: Icons.medical_services,
                       color: Colors.teal,
                       text: 'Panel de Médico',
-                      onTap:
-                          () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => const DoctorScreen(),
-                            ),
-                          ),
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const DoctorScreen(),
+                        ),
+                      ),
                     ),
                     _buildListTile(
                       icon: Icons.article,
                       color: Colors.teal,
                       text: 'Subir artículo',
-                      onTap:
-                          () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => const SubirArticuloScreen(),
-                            ),
-                          ),
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const SubirArticuloScreen(),
+                        ),
+                      ),
                     ),
                     _buildListTile(
                       icon: Icons.feed,
                       color: Colors.teal,
                       text: 'Publicaciones',
-                      onTap:
-                          () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => const VerArticulosScreen(),
-                            ),
-                          ),
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const VerArticulosScreen(),
+                        ),
+                      ),
                     ),
                   ],
                   if (role == 'patient') ...[
@@ -148,13 +139,12 @@ class RoleBasedDrawer extends StatelessWidget {
                       icon: Icons.favorite,
                       color: Colors.pinkAccent,
                       text: 'Panel de Paciente',
-                      onTap:
-                          () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => const HomeScreen(),
-                            ),
-                          ),
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const HomeScreen(),
+                        ),
+                      ),
                     ),
                   ],
                   _buildSectionLabel('UTILIDADES'),
@@ -162,26 +152,29 @@ class RoleBasedDrawer extends StatelessWidget {
                     icon: Icons.analytics,
                     color: Colors.deepPurple,
                     text: 'Predictividad Williams',
-                    onTap:
-                        () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => const Williamspredict(),
-                          ),
-                        ),
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const Williamspredict()),
+                    ),
                   ),
                   const Divider(),
+                  _buildListTile(
+                    icon: Icons.batch_prediction,
+                    color: Colors.indigo,
+                    text: 'Williams Def',
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const Williamspredict2()),
+                    ),
+                  ),
                   _buildListTile(
                     icon: Icons.person,
                     color: Colors.indigo,
                     text: 'Mi perfil',
-                    onTap:
-                        () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => const ProfileScreen(),
-                          ),
-                        ),
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const ProfileScreen()),
+                    ),
                   ),
                   _buildListTile(
                     icon: Icons.logout,

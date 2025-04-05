@@ -31,7 +31,7 @@ class CardiovascularScreen extends StatelessWidget {
                   child: FadeIn(
                     duration: const Duration(milliseconds: 500),
                     child: Image.asset(
-                      "assets/images/corazon_sindrome_williams.jpg",
+                      "assets/images/williams/WS1.jpg",
                       height: 200,
                       fit: BoxFit.cover,
                     ),

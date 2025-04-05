@@ -32,7 +32,7 @@ class ManejoSindromeDownScreen extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(20),
                     child: Image.asset(
-                      "assets/images/manejo_down.jpg",
+                      "assets/images/down/Down-Syndrome-31.webp",
                       height: 220,
                       fit: BoxFit.cover,
                     ),

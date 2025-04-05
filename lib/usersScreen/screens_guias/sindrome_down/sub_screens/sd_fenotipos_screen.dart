@@ -32,12 +32,12 @@ class FenotipoDownScreen extends StatelessWidget {
                   child: GestureDetector(
                     onTap: () => _openImageFullScreen(
                       context,
-                      "assets/images/fenotipo_down.jpg",
+                      "assets/images/down/Simone-Down-syndrome-1.webp",
                     ),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20),
                       child: Image.asset(
-                        "assets/images/fenotipo_down.jpg",
+                        "assets/images/down/Simone-Down-syndrome-1.webp",
                         height: 220,
                         fit: BoxFit.contain,
                       ),
@@ -68,31 +68,31 @@ class FenotipoDownScreen extends StatelessWidget {
                 context,
                 "Rostro y cabeza",
                 "Rostro redondo, perfil plano, puente nasal deprimido y cuello corto con pliegue nucal.",
-                "assets/images/down_rostro.jpg",
+                "assets/images/down/Down-Syndrome-1.webp",
               ),
               _buildFeatureCard(
                 context,
                 "Ojos",
                 "Fisuras palpebrales oblicuas, epicanto y manchitas de Brushfield en el iris.",
-                "assets/images/down_ojos.jpg",
+                "assets/images/down/Down-Syndrome-2.webp",
               ),
               _buildFeatureCard(
                 context,
                 "Lengua y boca",
                 "Lengua protruyente y macroglosia aparente; boca pequeña con labios delgados.",
-                "assets/images/down_boca.jpg",
+                "assets/images/down/Down-Syndrome-14.webp",
               ),
               _buildFeatureCard(
                 context,
                 "Manos",
                 "Manos cortas y anchas con pliegue palmar único y dedos cortos.",
-                "assets/images/down_manos.jpg",
+                "assets/images/down/Down-Syndrome-16.webp",
               ),
               _buildFeatureCard(
                 context,
                 "Tono muscular",
                 "Hipotonía generalizada, especialmente evidente en el período neonatal.",
-                "assets/images/down_hipotonia.jpg",
+                "assets/images/down/Down-Syndrome-31.webp",
               ),
 
               const SizedBox(height: 30),

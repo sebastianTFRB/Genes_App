@@ -32,7 +32,7 @@ class DiagnosticoDiferencialDownScreen extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(20),
                     child: Image.asset(
-                      "assets/images/diferencial_down.jpg",
+                      "assets/images/down/Down-Syndrome-16.webp",
                       height: 220,
                       fit: BoxFit.cover,
                     ),

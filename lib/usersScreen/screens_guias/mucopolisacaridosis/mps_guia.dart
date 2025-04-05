@@ -24,7 +24,7 @@ class GuiaMucopolisacaridosis extends StatelessWidget {
                 child: FadeIn(
                   duration: const Duration(milliseconds: 400),
                   child: Image.asset(
-                    "assets/images/mucopolisacaridosis.jpg",
+                    "assets/images/muco/1.webp",
                     height: 220,
                     fit: BoxFit.cover,
                   ),

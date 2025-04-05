@@ -33,12 +33,12 @@ class DiagnosticoMpsScreen extends StatelessWidget {
                     onTap:
                         () => _openImageFullScreen(
                           context,
-                          "assets/images/diagnostico_mps.jpg",
+                          "assets/images/muco/10.webp",
                         ),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20),
                       child: Image.asset(
-                        "assets/images/diagnostico_mps.jpg",
+                        "assets/images/muco/10.webp",
                         height: 220,
                         fit: BoxFit.contain,
                       ),

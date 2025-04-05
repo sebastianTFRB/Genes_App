@@ -33,12 +33,12 @@ class ManejoMpsScreen extends StatelessWidget {
                     onTap:
                         () => _openImageFullScreen(
                           context,
-                          "assets/images/manejo_mps.jpg",
+                          "assets/images/muco/12.webp",
                         ),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20),
                       child: Image.asset(
-                        "assets/images/manejo_mps.jpg",
+                        "assets/images/muco/12.webp",
                         height: 220,
                         fit: BoxFit.contain,
                       ),

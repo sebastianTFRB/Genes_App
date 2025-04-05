@@ -24,7 +24,7 @@ class GuiaSindromeDown extends StatelessWidget {
                 child: FadeIn(
                   duration: const Duration(milliseconds: 400),
                   child: Image.asset(
-                    "assets/images/sindrome_down.jpg",
+                    "assets/images/down/Down-Syndrome-1.webp",
                     height: 220,
                     fit: BoxFit.cover,
                   ),

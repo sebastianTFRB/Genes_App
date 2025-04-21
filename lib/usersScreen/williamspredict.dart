@@ -359,6 +359,8 @@ class _WilliamspredictState extends State<Williamspredict> {
         color: Colors.blueAccent,
       ),
       body: SafeArea(
+
+        
         child: SingleChildScrollView(
           controller: _scrollController,
           padding: const EdgeInsets.all(16.0),
